@@ -9,15 +9,15 @@ export class FightMechanics {
   fightTurn() {
     this.WhoAttacks = this.calculateAttacker();
 
-    if (this.WhoAttacks === "player") {
+    if (this.WhoAttacks === 'player') {
       // player rolls dice
-      this.calculateDamageAmount("player");
+      this.calculateDamageAmount('player');
     }
 
-    if (this.WhoAttacks === "monster") {
+    if (this.WhoAttacks === 'monster') {
       // monster rolls dice
 
-      this.calculateDamageAmount("monster");
+      this.calculateDamageAmount('monster');
     }
   }
 
@@ -26,22 +26,22 @@ export class FightMechanics {
 
     const playerSpeed = Math.floor(
       this.Player.getAgility() +
-        this.Player.getSelectedWeapon().getWeaponSpeed() *
-          (this.Player.getLevel() * 0.5)
+      this.Player.getSelectedWeapon().getWeaponSpeed() *
+      (this.Player.getLevel() * 0.5)
     );
 
     const monsterSpeed = Math.floor(
       this.Monster.getAgility() +
-        this.Monster.getSelectedWeapon().getWeaponSpeed() *
-          (this.Monster.getLevel() * 0.5)
+      this.Monster.getSelectedWeapon().getWeaponSpeed() *
+      (this.Monster.getLevel() * 0.5)
     );
 
     const playerRoll = this.calculateRandomNumber(0, playerSpeed);
     const monsterRoll = this.calculateRandomNumber(0, monsterSpeed);
     if (playerRoll >= monsterRoll) {
-      return (this.WhoAttacks = "player");
+      return (this.WhoAttacks = 'player');
     } else {
-      return (this.WhoAttacks = "monster");
+      return (this.WhoAttacks = 'monster');
     }
   }
 
@@ -50,7 +50,7 @@ export class FightMechanics {
   }
 
   calculateDamageAmount(creature) {
-    if (creature === "player") {
+    if (creature === 'player') {
       let playerDamage = this.calculateRandomNumber(
         this.Player.getSelectedWeapon().getMinimumDamage(),
         this.Player.getSelectedWeapon().getMaximumDamage()
@@ -62,33 +62,33 @@ export class FightMechanics {
       this.Player.setCurrentHitPoints(playerDamage);
     }
 
-    if (creature === "monster") {
+    if (creature === 'monster') {
       let monsterDamage = this.calculateRandomNumber(
         this.Player.getSelectedWeapon().getMinimumDamage(),
         this.Player.getSelectedWeapon().getMaximumDamage()
       );
       monsterDamage = Math.floor(
         monsterDamage +
-          this.Monster.getStrength() +
-          this.Monster.getLevel() * 0.5
+        this.Monster.getStrength() +
+        this.Monster.getLevel() * 0.5
       );
       this.currentHit = monsterDamage;
       this.Monster.setCurrentHitPoints(monsterDamage);
     }
     // compare player vs monster strength + selected weapon damage and calculate damage
 
-    if (this.WhoAttacks === "player") {
+    if (this.WhoAttacks === 'player') {
       console.log(
         `${this.Player.getName()} hits ${this.Monster.getName()} for ${
-          this.currentHit
+        this.currentHit
         }`
       );
       console.log(`${this.Monster.getName()} misses ${this.Player.getName()}`);
     }
-    if (this.WhoAttacks === "monster") {
+    if (this.WhoAttacks === 'monster') {
       console.log(
         `${this.Monster.getName()} hits ${this.Player.getName()} for ${
-          this.currentHit
+        this.currentHit
         } points!`
       );
       console.log(`${this.Player.getName()} misses ${this.Monster.getName()}`);
