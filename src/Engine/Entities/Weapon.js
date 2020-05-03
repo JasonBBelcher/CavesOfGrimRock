@@ -6,9 +6,9 @@ import { Item } from "./Item";
 export class Weapon extends Item {
   constructor(id, name, namePlural, minimumDamage, maximumDamage, weaponSpeed) {
     super(id, name, namePlural);
-    this.minimumDamage = minimumDamage;
-    this.maximumDamage = maximumDamage;
-    this.weaponSpeed = weaponSpeed || 5;
+    this.minimumDamage = minimumDamage || 1;
+    this.maximumDamage = maximumDamage || 4;
+    this.weaponSpeed = weaponSpeed || 2;
   }
 
   setMinimumDamage(minDamage) {
