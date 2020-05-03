@@ -1,3 +1,13 @@
+/**
+ * Fight Mechanics will be used inside a game loop to 
+ * dynamically compare the stats of a player against a monster
+ * to determine who gets to attack and the amount of damage delt
+ * on each frame of the game loop.
+ * 
+ * @param  {class} Player
+ * @param  {class} Monster
+ */
+
 export class FightMechanics {
   constructor(Player, Monster) {
     this.Player = Player;
@@ -20,7 +30,9 @@ export class FightMechanics {
       this.calculateDamageAmount('monster');
     }
   }
-
+  /**
+   * @return {WhoAttacks}
+   */
   calculateAttacker() {
     // compare agility of player vs monster and roll to attack.
 
@@ -44,11 +56,9 @@ export class FightMechanics {
       return (this.WhoAttacks = 'monster');
     }
   }
-
-  calculateHitChance() {
-    // compare player vs monster agility + weapon speed stats and calculate hit chance
-  }
-
+  /**
+   * @param  {string} creature
+   */
   calculateDamageAmount(creature) {
     if (creature === 'player') {
       let playerDamage = this.calculateRandomNumber(
@@ -75,7 +85,6 @@ export class FightMechanics {
       this.currentHit = monsterDamage;
       this.Monster.setCurrentHitPoints(monsterDamage);
     }
-    // compare player vs monster strength + selected weapon damage and calculate damage
 
     if (this.WhoAttacks === 'player') {
       console.log(
@@ -94,7 +103,10 @@ export class FightMechanics {
       console.log(`${this.Player.getName()} misses ${this.Monster.getName()}`);
     }
   }
-
+  /**
+   * @param  {number} min
+   * @param  {number} max
+   */
   calculateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }

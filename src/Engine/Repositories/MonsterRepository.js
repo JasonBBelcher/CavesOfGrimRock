@@ -5,11 +5,17 @@
 import { BaseRepository } from "./BaseRepository";
 
 export class MonsterRepository extends BaseRepository {
-  add(Monster) {
-    super.add(Monster.getId(), Monster);
+  /**
+   * @param  {Monster} Monster
+   * @return {MonsterRepository}
+   */
+  add(monster) {
+    super.add(monster.getId(), monster);
     return this;
   }
-
+  /**
+   * @param  {string} id
+   */
   getMonster(id) {
     return super.find(id);
   }
