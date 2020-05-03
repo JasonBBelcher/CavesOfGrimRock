@@ -24,7 +24,7 @@ export const Factory = {
                     weapon.weaponSpeed
                 );
             case 'HealingPotion':
-                const healingPotion = healingPotionList.filter(potion => potion.id === id);
+                const potion = healingPotionList.filter(potion => potion.id === id);
                 return new registry[type](
                     potion.id,
                     potion.name,
