@@ -1,12 +1,13 @@
 import { Factory } from "./Engine/Config/Registry/Factory";
 import * as registry from "./Engine/Config/Registry/RegisteredClasses";
 
-const rustySword = Factory.construct(registry.default, "Weapon", "RUSTY_SWORD");
-const rustySword2 = Factory.construct(registry.default, "Weapon", "RUSTY_SWORD");
+/** User new Factory and Registry to instantiate 2 opponents */
 
-console.log(rustySword, rustySword2);
+const player = Factory.construct(registry.default, "Player", "FIGHTER");
+const monster = Factory.construct(registry.default, "Monster", "LOWER_GOBLIN_SCOUT");
 
-const lesserHealingPotion = Factory.construct(registry.default, "HealingPotion", "LESSER_HEALING_POTION");
-console.log(lesserHealingPotion);
-const healingPotion = Factory.construct(registry.default, "HealingPotion", "HEALING_POTION");
-console.log(healingPotion);
+
+// test the gameloop
+let fightLoop = require('./Engine/FightLoop');
+fightLoop = fightLoop();
+console.log(fightLoop(player, monster));
