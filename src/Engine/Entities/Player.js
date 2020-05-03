@@ -15,7 +15,7 @@ export class Player extends Creature {
     gold,
     experiencePoints,
     level,
-    playerAttributes = [],
+    playerAttributes,
     PlayerQuestList,
     SelectedWeapon
   ) {
@@ -26,9 +26,7 @@ export class Player extends Creature {
     this.level = level || 0;
     this.inventory = new InventoryRepository();
     this.PlayerQuestList = PlayerQuestList || new PlayerQuestsRepository();
-    this.SelectedWeapon =
-      new Weapon("RUSTY_SWORD", "A rusty dull sword", "Rusty swords", 4, 10) ||
-      SelectedWeapon;
+    this.SelectedWeapon = SelectedWeapon;
   }
 
   getSelectedWeapon() {

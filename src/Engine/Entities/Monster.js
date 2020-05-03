@@ -15,7 +15,7 @@ export class Monster extends Creature {
     maximumDamage,
     rewardExperiencePoints,
     rewardGold,
-    monsterAttributes = [],
+    monsterAttributes,
     LootTableList,
     SelectedWeapon
   ) {
@@ -24,13 +24,11 @@ export class Monster extends Creature {
     this.rewardExperiencePoints = rewardExperiencePoints;
     this.rewardGold = rewardGold;
     this.LootTableList = LootTableList || new LootItemRepository();
-    this.SelectedWeapon =
-      new Weapon("A Dull Axe", "A Dull Axe", "Dull Axes", 6, 16) ||
-      SelectedWeapon;
+    this.SelectedWeapon = SelectedWeapon;
   }
 
   getLevel() {
-    return 3;
+    return 1;
   }
 
   getSelectedWeapon() {

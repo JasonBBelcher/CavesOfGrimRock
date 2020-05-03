@@ -18,8 +18,8 @@ export class Creature extends CreatureAttributes {
     super(strength, agility, intellect, mana);
     this.id = id;
     this.name = name;
-    this.currentHitPoints = currentHitPoints || 0;
-    this.maximumHitPoints = maximumHitPoints || 0;
+    this.currentHitPoints = currentHitPoints || 50;
+    this.maximumHitPoints = maximumHitPoints || 50;
   }
 
   setCurrentHitPoints(points) {
