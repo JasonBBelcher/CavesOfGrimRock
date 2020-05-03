@@ -1,15 +1,13 @@
 {
-  "name": "vanilla",
+  "name": "cavesofgrimrock",
   "version": "1.0.0",
-  "description": "JavaScript example starter project",
+  "description": "Caves of GrimRock (MUD) is a simple text based RPG in the style of Zork",
   "main": "index.html",
   "scripts": {
     "start": "parcel index.html --open",
     "build": "parcel build index.html"
   },
-  "dependencies": {
-    "jsdoc": "3.6.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.2.0",
     "parcel-bundler": "^1.6.1",
@@ -17,6 +15,8 @@
   },
   "keywords": [
     "javascript",
-    "starter"
+    "MUD",
+    "ZORK",
+    "text-adventure"
   ]
 }
