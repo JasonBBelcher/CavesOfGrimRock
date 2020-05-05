@@ -36,4 +36,4 @@ randomMapNodeGenerator.getAllLocations()(result4);
 
 
 
-console.log(randomMapNodeGenerator.locationNodes);
+console.log(randomMapNodeGenerator.getLocationNodes());
