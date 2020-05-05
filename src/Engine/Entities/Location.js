@@ -13,7 +13,9 @@ export class Location {
     LocationToNorth,
     LocationToEast,
     LocationToSouth,
-    LocationToWest
+    LocationToWest,
+    PreviousLocation,
+    playerVisited
   ) {
     this.id = id;
     this.name = name;
@@ -21,11 +23,13 @@ export class Location {
     this.ItemRequiredToEnter = ItemRequiredToEnter;
     this.QuestAvailableHere = QuestAvailableHere;
     this.hasAMonster = hasAMonster;
-    this.MonstersAtLocation = new MonsterRepository();
+    this.MonstersAtLocation = null;
     this.LocationToNorth = LocationToNorth;
     this.LocationToEast = LocationToEast;
     this.LocationToSouth = LocationToSouth;
     this.LocationToWest = LocationToWest;
+    this.PreviousLocation = PreviousLocation
+    this.playerVisted = playerVisited
   }
 
   setId(id) {
