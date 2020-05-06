@@ -13,27 +13,105 @@ const monster = Factory.construct(registry.default, "Monster", "LOWER_GOBLIN_SCO
 // console.log(fightLoop(player, monster));
 
 
-// testing random map node generation. 
-import { randomMapNodeGenerator } from "./Engine/Config/Registry/GenerateMapNodes";
+// testing traversal of map 
 
-let mapPath1 = randomMapNodeGenerator.createNodes('North', 'Northeast');
-let mapPath2 = randomMapNodeGenerator.createNodes('South', 'Southwest');
-let mapPath3 = randomMapNodeGenerator.createNodes('South', 'Southeast');
-let mapPath4 = randomMapNodeGenerator.createNodes('North', 'Northwest');
+const createMap = (size) => {
+    const mapBoard = [];
+    for (let i = 0; i < size; i++) {
+        mapBoard.push(`rm${i}`)
+    }
+    return mapBoard;
+}
 
-
-
-let result1 = mapPath1(4);
-let result2 = mapPath2(4);
-let result3 = mapPath3(4);
-let result4 = mapPath4(4);
-
-randomMapNodeGenerator.getAllLocations()(result1);
-randomMapNodeGenerator.getAllLocations()(result2);
-randomMapNodeGenerator.getAllLocations()(result3);
-randomMapNodeGenerator.getAllLocations()(result4);
+const genMap = createMap(64);
+console.log(genMap);
 
 
 
+const map = [
+    'rm1', 'rm2', 'rm3', '###',
+    '###', '###', 'rm4', 'rm5',
+    'rm11', '###', '###', 'rm6',
+    'rm10', 'rm9', 'rm8', 'rm7',
+]
 
-console.log(randomMapNodeGenerator.getLocationNodes());
+
+
+let playerIndex = 0;
+let east = 1;
+let west = 1;
+let south = 4;
+let north = 4;
+let eastBounds = 3;
+let westBounds = 0;
+let northBound = 0;
+let southBound = 15;
+
+function whereAmI() {
+    return console.log(map[playerIndex]);
+}
+
+function move(direction) {
+    if (direction === 'east' && eastBounds > 0) {
+
+        playerIndex += east;
+        if (map[playerIndex] === "###") {
+            playerIndex -= west;
+            console.log('You can\'t go that way!');
+            return;
+        }
+
+        console.log(map[playerIndex]);
+        eastBounds--;
+        westBounds++;
+
+    }
+
+    if (direction === 'west' && westBounds > 0) {
+        playerIndex -= west;
+        if (map[playerIndex] === "###") {
+            playerIndex += east;
+            console.log('You can\'t go that way!');
+            return;
+        }
+
+        console.log(map[playerIndex]);
+        eastBounds++;
+        westBounds--;
+
+
+    }
+    if (direction === 'south' && southBound > 0) {
+        playerIndex += south;
+        if (map[playerIndex] === "###") {
+            playerIndex -= north;
+            console.log('You can\'t go that way!');
+            return;
+        }
+        console.log(map[playerIndex]);
+        southBound -= 4;
+        northBound += 4;
+
+
+    }
+    if (direction === 'north' && northBound > 0) {
+        playerIndex -= north;
+        if (map[playerIndex] === "###") {
+            playerIndex += south;
+            console.log('You can\'t go that way!');
+            return;
+        }
+        console.log(map[playerIndex]);
+        southBound += 4;
+        northBound -= 4;
+
+
+    }
+
+}
+whereAmI();
+move('east');
+move('east');
+move('south');
+move('south');
+move('east');
