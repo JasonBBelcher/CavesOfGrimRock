@@ -18,7 +18,27 @@ export class Location {
     this.ItemRequiredToEnter = ItemRequiredToEnter;
     this.hasAMonster = hasAMonster;
     this.MonstersAtLocation = MonstersAtLocation;
+    this.monsterInFight = null;
     this.playerVisted = playerVisited
+  }
+
+  checkForMonster() {
+    if (this.MonstersAtLocation.length > 0) {
+
+      this.monsterInFight = this.MonstersAtLocation[randomNumber(0, this.MonstersAtLocation.length)]
+      return this.monsterInFight;
+
+    } else {
+      this.monsterInFight = this.MonstersAtLocation.pop();
+      return this.monsterInFight;
+    }
+  }
+
+  monsterDeath() {
+    this.MonstersAtLocation.splice(this.monsterInFight, 1);
+    if (!this.MonstersAtLocation.length) {
+      this.hasAMonster = false;
+    }
   }
 
   setId(id) {
@@ -65,4 +85,8 @@ export class Location {
     return this.MonstersAtLocation;
   }
 
+}
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
 }

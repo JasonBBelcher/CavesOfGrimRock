@@ -15,7 +15,7 @@ export default
             "description": `A narrow and snaking passage way lies before you.`,
             "itemRequiredToEnter": false,
             "hasAMonster": false,
-            "monstersAtLocation": [],
+            "monstersAtLocation": ["LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT"],
             "playerVisited": false
         },
         {
@@ -78,7 +78,7 @@ export default
             "description": `A test description`,
             "itemRequiredToEnter": false,
             "hasAMonster": false,
-            "monstersAtLocation": [],
+            "monstersAtLocation": ["LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT"],
             "playerVisited": false
         }, {
             "id": 10,
@@ -149,7 +149,7 @@ export default
             "description": `A test description`,
             "itemRequiredToEnter": false,
             "hasAMonster": false,
-            "monstersAtLocation": [],
+            "monstersAtLocation": ["LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT"],
             "playerVisited": false
         },
         {
@@ -158,7 +158,7 @@ export default
             "description": `A test description`,
             "itemRequiredToEnter": false,
             "hasAMonster": false,
-            "monstersAtLocation": [],
+            "monstersAtLocation": ["LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT"],
             "playerVisited": false
         },
         {
@@ -167,7 +167,7 @@ export default
             "description": `A test description`,
             "itemRequiredToEnter": false,
             "hasAMonster": false,
-            "monstersAtLocation": [],
+            "monstersAtLocation": ["LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT"],
             "playerVisited": false
         },
         {
@@ -176,7 +176,7 @@ export default
             "description": `A test description`,
             "itemRequiredToEnter": false,
             "hasAMonster": false,
-            "monstersAtLocation": [],
+            "monstersAtLocation": ["LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT"],
             "playerVisited": false
         },
         {
@@ -185,7 +185,7 @@ export default
             "description": `A test description`,
             "itemRequiredToEnter": false,
             "hasAMonster": false,
-            "monstersAtLocation": [],
+            "monstersAtLocation": ["LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT"],
             "playerVisited": false
         },
         {
@@ -194,7 +194,7 @@ export default
             "description": `A test description`,
             "itemRequiredToEnter": false,
             "hasAMonster": false,
-            "monstersAtLocation": [],
+            "monstersAtLocation": ["LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT", "LOWER_GOBLIN_SCOUT"],
             "playerVisited": false
         }
 

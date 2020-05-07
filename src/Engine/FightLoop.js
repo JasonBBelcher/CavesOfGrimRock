@@ -5,6 +5,8 @@ import { FightMechanics } from "./FightMechanics";
 const gameLoop = function () {
     return (Player, Monster) => {
         const fight = new FightMechanics(Player, Monster);
+        fight.fightTurn();
+        fight.checkFightEnded();
 
         self = setInterval(function () {
             fight.fightTurn();

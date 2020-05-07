@@ -1,16 +1,25 @@
 /**
  * Loot Item
  */
+import { Item } from "./Item";
 
-export class LootItem {
-  constructor(ItemDetails, dropPercentage, isDefaultItem) {
-    this.ItemDetails = ItemDetails;
+export class LootItem extends Item {
+  constructor(uid, type, id, name, namePlural, dropPercentage, isDefaultItem, attributeEffect) {
+    super(uid, type, id, name, namePlural, attributeEffect);
     this.dropPercentage = dropPercentage;
     this.isDefaultItem = isDefaultItem || false;
   }
 
-  setItemDetails(Item) {
-    this.ItemDetails = Item;
+  setId(id) {
+    this.id = id;
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  setNamePlural(namePlural) {
+    this.namePlural = namePlural;
   }
 
   setDropPercentage(percentage) {
@@ -22,7 +31,7 @@ export class LootItem {
   }
 
   getId() {
-    this.ItemDetails.getId();
+    return this.id;
   }
 
   getDropPercentage() {

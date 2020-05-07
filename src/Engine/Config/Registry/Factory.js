@@ -1,13 +1,13 @@
 import * as weapons from "../Weapons/weapons";
-import * as healingPotions from "../HealingPotions/healingPotions";
+import * as items from "../Items/Items";
 import * as playerClasses from "../Player/players";
 import * as monsters from "../Monsters/monsters";
 import * as maps from "../Maps/maps";
+import { LocationFactory } from "../Maps/LocationFactory";
 const weaponList = weapons.default;
-const healingPotionList = healingPotions.default;
+const itemList = items.default;
 const playerClassesList = playerClasses.default;
 const monsterList = monsters.default;
-const mapDict = maps.default;
 
 /**
  * Singleton Factory that is responsible for creating all world objects in the game
@@ -30,13 +30,27 @@ export const Factory = {
                     weapon.maximumDamage,
                     weapon.weaponSpeed
                 );
-            case 'HealingPotion':
-                const potion = healingPotionList.filter(potion => potion.id === id)[0];
+            case 'Item':
+                let item = itemList.filter(item => item.id === id)[0];
                 return new registry[type](
-                    potion.id,
-                    potion.name,
-                    potion.namePlural,
-                    potion.amountToHeal
+                    item.uid,
+                    item.type,
+                    item.id,
+                    item.name,
+                    item.namePlural,
+                    item.attributeEffect,
+                );
+            case 'LootItem':
+                item = itemList.filter(item => item.id === id)[0];
+                return new registry[type](
+                    item.uid,
+                    item.type,
+                    item.id,
+                    item.name,
+                    item.namePlural,
+                    item.dropPercentage,
+                    item.isDefault,
+                    item.attributeEffect,
                 );
             case 'Player':
                 const player = playerClassesList.filter(player => player.id === id)[0];
@@ -45,6 +59,7 @@ export const Factory = {
                     player.name,
                     player.currentHitPoints,
                     player.maximumHitPoints,
+                    player.CurrentLocation,
                     player.gold,
                     player.experiencePoints,
                     player.level,
@@ -55,9 +70,12 @@ export const Factory = {
                         player.selectedWeapon.namePlural,
                         player.selectedWeapon.minimumDamage,
                         player.selectedWeapon.maximumDamage
-                    )
+                    ),
+                    registry['playerNavigation'](LocationFactory.construct(registry, 'map1')),
+                    registry['fightLoop'],
+                    player.inventory
                 );
-                break;
+
             case 'Monster':
                 const monster = monsterList.filter(monster => monster.id === id)[0];
                 return new registry[type](

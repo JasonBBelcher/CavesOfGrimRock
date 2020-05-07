@@ -1,7 +1,5 @@
 import { Creature } from "./Creature";
 import { PlayerQuestsRepository } from "../Repositories/PlayerQuestsRepo";
-import { InventoryRepository } from "../Repositories/InventoryRepo";
-import { Weapon } from "./Weapon";
 
 /**
  * Player Entity
@@ -19,17 +17,83 @@ export class Player extends Creature {
     playerAttributes,
     PlayerQuestList,
     SelectedWeapon,
-    playerNavigation
+    playerNavigation,
+    fightLoop,
+    inventory
   ) {
     super(id, name, currentHitPoints, maximumHitPoints, ...playerAttributes);
     this.gold = gold || 0;
     this.experiencePoints = experiencePoints || 0;
     this.level = level || 0;
-    this.inventory = new InventoryRepository();
+    this.inventory = inventory;
     this.PlayerQuestList = PlayerQuestList || new PlayerQuestsRepository();
     this.SelectedWeapon = SelectedWeapon;
-    this.playerNavigation = playerNavigation;
     this.CurrentLocation = CurrentLocation;
+    this.player = this;
+    this.playerNavigation = playerNavigation;
+    this.fightLoop = fightLoop;
+    this.attributeModified = false;
+    this.modifiedAttributeName = '';
+    this.currentlyFighting = false;
+  }
+
+  placeInInventory(Item) {
+    if (!this.inventory) {
+      this.inventory = [];
+    }
+    this.inventory.push(Item);
+    return this;
+  }
+
+  getInventory() {
+    return this.inventory;
+  }
+
+  useItemFromInventory(id) {
+    // find the type of item 
+    this.getInventory().forEach((item, index) => {
+      if (item.getId() === id) {
+        if (item.type === "POTION") {
+
+          // affect the attrib modifier
+          if (item.getAttributeName() === 'strength' ||
+            item.getAttributeName() === 'agility' ||
+            item.getAttributeName() === 'intellect'
+          ) {
+            this.attributeModified = true;
+            this.attributeModifiedName = item.getAttributeName();
+            if (this.attributeModified === false || this.attributeModifiedName !== item.getAttributeName()) {
+              console.log(super.addAttributeAmount(item.getAttributeName(), item.getAttributeValue()));
+
+            } else {
+              console.log('cannot modify an already modified attribute')
+              return;
+            }
+
+            setTimeout(() => {
+              console.log(`${item.name} wore off.`)
+              super.subtractAttributeAmount(item.getAttributeName(), item.getAttributeValue());
+              this.attributeModified = false;
+              this.attributeModifiedName = '';
+            }, 30000)
+          }
+        }
+        // delete the item after 
+        this.inventory = this.inventory.splice(index, 1)
+        console.log(this.inventory);
+      }
+    });
+    return this;
+  }
+
+  setPlayerNav(nav) {
+    this.playerNavigation = nav;
+    return this;
+  }
+
+  setFightLoop(fightLoop) {
+    this.fightLoop = fightLoop;
+    return this;
   }
 
   getSelectedWeapon() {
@@ -37,8 +101,8 @@ export class Player extends Creature {
   }
 
   getCurrentLocation() {
-    this.currentLocation = this.playerNavigation.getLocation();
-    return this.currentLocation;
+    this.CurrentLocation = this.playerNavigation.getLocation();
+    return this.CurrentLocation;
   }
 
   setInventoryItem(item) {
@@ -46,9 +110,14 @@ export class Player extends Creature {
     return this;
   }
 
-  setNewLocation(direction) {
-    this.currentLocation = this.playerNavigation.move(direction);
-    return this;
+  move(direction) {
+    if (this.getCurrentlyFighting()) {
+      console.log('can\'t move while fighting');
+      return this;
+    } else {
+      this.CurrentLocation = this.playerNavigation.move(direction);
+      return this;
+    }
   }
 
   setPlayerQuest(quest) {
@@ -94,6 +163,29 @@ export class Player extends Creature {
 
   getName() {
     return this.name;
+  }
+
+  getPlayer() {
+    return this.player;
+  }
+
+  getCurrentlyFighting() {
+    return this.currentlyFighting;
+  }
+
+  setCurrentlyFighting(bool) {
+    this.currentlyFighting = bool;
+    return this;
+  }
+
+  checkIfMonstersToFight() {
+    // check if current location has monsters to fight
+    const monsterToFight = this.getCurrentLocation().checkForMonster();
+    if (monsterToFight) {
+      this.fightLoop(this.getPlayer(), monsterToFight)
+    } else {
+      console.log('no monster to fight.');
+    }
   }
 
 }

@@ -15,6 +15,7 @@ export class FightMechanics {
     this.WhoAttacks = null;
     this.currentHit = 0;
     this.timer = null;
+    this.currentlyFighting = false;
   }
   /**
    * @param  {setInterval} timer
@@ -37,7 +38,7 @@ export class FightMechanics {
 
   /** Roll the dice  */
   fightTurn() {
-
+    this.getPlayer().setCurrentlyFighting(true);
     this.WhoAttacks = this.calculateAttacker();
     this.calculateDamageAmount();
   }
@@ -89,6 +90,7 @@ export class FightMechanics {
    * @param  {string} creature
    */
   calculateDamageAmount() {
+    console.log(this.Player);
     if (this.WhoAttacks === 'player') {
 
       /** Calculate based on min and max damage set on player object */
@@ -147,16 +149,23 @@ export class FightMechanics {
   }
   /** Used by Game Loop to check if fight needs to end due to either the player or monster dying. */
   checkFightEnded() {
+
     if (this.getPlayer().getCurrentHitPoints() <= 0) {
+      this.getPlayer().setCurrentlyFighting(false);
       console.log(`${this.getPlayer().getName()} died!`)
       this.stopTimer();
       return;
     }
     if (this.getMonster().getCurrentHitPoints() <= 0) {
+      this.getPlayer().setCurrentlyFighting(false);
       console.log(`${this.getPlayer().getName()} killed the nasty ${this.getMonster().getName()}!`);
       this.stopTimer();
       return;
     }
+  }
+
+  isFighting() {
+    return this.currentlyFighting;
   }
   /**
    * @param  {number} min

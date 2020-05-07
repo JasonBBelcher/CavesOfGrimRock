@@ -1,27 +1,19 @@
 import { Factory } from "./Engine/Config/Registry/Factory";
 import * as registry from "./Engine/Config/Registry/RegisteredClasses";
-import * as mapData from "./Engine/Config/Maps/maps";
-import { LocationFactory } from "./Engine/Config/Maps/LocationFactory";
-import { playerNavigation } from "./Engine/PlayerNavigation";
-const maps = mapData.default;
-/** User new Factory and Registry to instantiate 2 opponents */
 
-// const player = Factory.construct(registry.default, "Player", "FIGHTER");
-// const monster = Factory.construct(registry.default, "Monster", "LOWER_GOBLIN_SCOUT");
-// console.log(monster);
-// console.log(player);
+// load the map into player navigation.
+const player = Factory.construct(registry.default, "Player", "FIGHTER");
 
-// // test the gameloop
-// let fightLoop = require('./Engine/FightLoop');
-// fightLoop = fightLoop();
-// console.log(fightLoop(player, monster));
+player.move('east');
+console.log(player.checkIfMonstersToFight())
+// // check that a player can't move once a fight has started
+
+const potion = Factory.construct(registry.default, "Item", 'STRENGTH_POTION');
+const potion2 = Factory.construct(registry.default, "Item", 'STRENGTH_POTION');
+
+console.log(player.placeInInventory(potion));
+player.placeInInventory(potion2).useItemFromInventory('STRENGTH_POTION');
 
 
-//  test random location generation.
 
-const populatedMap = LocationFactory.construct(registry.default, "map1");
-const playerNav = playerNavigation(populatedMap);
-console.log(playerNav.getLocation());
-playerNav.move('east');
-playerNav.move('east');
-playerNav.move('south');
+

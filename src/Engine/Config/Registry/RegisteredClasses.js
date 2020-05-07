@@ -10,6 +10,8 @@ import { Item } from "../../Entities/Item";
 import { HealingPotion } from "../../Entities/HealingPotion";
 import { InventoryItem } from "../../Entities/InventoryItem";
 import { FightMechanics } from "../../FightMechanics";
+import { playerNavigation } from "../../PlayerNavigation";
+let fightLoop = require('../../FightLoop');
 /**
  * A Simple Dictionary registry of all world class entities to be used in the game.
  */
@@ -26,5 +28,6 @@ export default
         "InventoryItem": InventoryItem,
         "Item": Item,
         "HealingPotion": HealingPotion,
-        "FightMechanics": FightMechanics
+        "playerNavigation": playerNavigation,
+        "fightLoop": fightLoop()
     }

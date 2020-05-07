@@ -11,6 +11,24 @@ export class CreatureAttributes {
     return this;
   }
 
+  addAttributeAmount(name, value) {
+    this[name] += value;
+  }
+
+  subtractAttributeAmount(name, value) {
+    this[name] -= value;
+  }
+
+  addStrength(amount) {
+    this.strength += amount;
+    return this;
+  }
+
+  subtractStrength(amount) {
+    this.strength -= amount;
+    return this;
+  }
+
   setAgility(amount) {
     this.agility = amount;
     return this;

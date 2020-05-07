@@ -3,8 +3,6 @@
  */
 
 import { Creature } from "./Creature";
-import { LootItemRepository } from "../Repositories/LootItemRepo";
-import { Weapon } from "./Weapon";
 
 export class Monster extends Creature {
   constructor(
@@ -16,14 +14,14 @@ export class Monster extends Creature {
     rewardExperiencePoints,
     rewardGold,
     monsterAttributes,
-    LootTableList,
+    loot,
     SelectedWeapon
   ) {
     super(id, name, currentHitPoints, maximumHitPoints, ...monsterAttributes);
     this.maximumDamage = maximumDamage;
     this.rewardExperiencePoints = rewardExperiencePoints;
     this.rewardGold = rewardGold;
-    this.LootTableList = LootTableList || new LootItemRepository();
+    this.loot = loot || [];
     this.SelectedWeapon = SelectedWeapon;
   }
 
@@ -35,13 +33,13 @@ export class Monster extends Creature {
     return this.SelectedWeapon;
   }
 
-  setLootTableItem(item, dropPercentage, isDefault) {
-    this.LootTableList.add(item, dropPercentage, isDefault);
+  setLootTableItem(LootItem) {
+    this.loot.push(LootItem)
     return this;
   }
 
   getLootTableItems() {
-    return this.LootTableList.listAll();
+    return this.LootTableList;
   }
 
   setId(id) {
