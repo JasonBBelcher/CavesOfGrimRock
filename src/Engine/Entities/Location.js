@@ -8,27 +8,16 @@ export class Location {
     name,
     description,
     ItemRequiredToEnter,
-    QuestAvailableHere,
     hasAMonster,
-    LocationToNorth,
-    LocationToEast,
-    LocationToSouth,
-    LocationToWest,
-    PreviousLocation,
+    MonstersAtLocation,
     playerVisited
   ) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.ItemRequiredToEnter = ItemRequiredToEnter;
-    this.QuestAvailableHere = QuestAvailableHere;
     this.hasAMonster = hasAMonster;
-    this.MonstersAtLocation = null;
-    this.LocationToNorth = LocationToNorth;
-    this.LocationToEast = LocationToEast;
-    this.LocationToSouth = LocationToSouth;
-    this.LocationToWest = LocationToWest;
-    this.PreviousLocation = PreviousLocation
+    this.MonstersAtLocation = MonstersAtLocation;
     this.playerVisted = playerVisited
   }
 
@@ -72,27 +61,8 @@ export class Location {
     return this.ItemRequiredToEnter;
   }
 
-  getQuestAvailableHere() {
-    return this.QuestAvailableHere;
+  getMonstersAtLocation() {
+    return this.MonstersAtLocation;
   }
 
-  getMonsterLivingHere() {
-    return this.MonsterLivingHere;
-  }
-
-  getLocationToNorth() {
-    return this.LocationToNorth;
-  }
-
-  getLocationToEast() {
-    return this.LocationToEast;
-  }
-
-  getLocationToSouth() {
-    return this.LocationToSouth;
-  }
-
-  getLocationToWest() {
-    return this.LocationToWest;
-  }
 }

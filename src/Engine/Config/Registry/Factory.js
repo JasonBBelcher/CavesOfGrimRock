@@ -2,11 +2,13 @@ import * as weapons from "../Weapons/weapons";
 import * as healingPotions from "../HealingPotions/healingPotions";
 import * as playerClasses from "../Player/players";
 import * as monsters from "../Monsters/monsters";
-import { Weapon } from "../../Entities/Weapon";
+import * as maps from "../Maps/maps";
 const weaponList = weapons.default;
 const healingPotionList = healingPotions.default;
 const playerClassesList = playerClasses.default;
 const monsterList = monsters.default;
+const mapDict = maps.default;
+
 /**
  * Singleton Factory that is responsible for creating all world objects in the game
  */
@@ -28,7 +30,6 @@ export const Factory = {
                     weapon.maximumDamage,
                     weapon.weaponSpeed
                 );
-                break;
             case 'HealingPotion':
                 const potion = healingPotionList.filter(potion => potion.id === id)[0];
                 return new registry[type](
@@ -37,7 +38,6 @@ export const Factory = {
                     potion.namePlural,
                     potion.amountToHeal
                 );
-                break;
             case 'Player':
                 const player = playerClassesList.filter(player => player.id === id)[0];
                 return new registry[type](
@@ -50,7 +50,7 @@ export const Factory = {
                     player.level,
                     player.playerAttributes,
                     player.playerQuestList,
-                    new Weapon(player.selectedWeapon.id,
+                    new registry['Weapon'](player.selectedWeapon.id,
                         player.selectedWeapon.name,
                         player.selectedWeapon.namePlural,
                         player.selectedWeapon.minimumDamage,
@@ -70,14 +70,13 @@ export const Factory = {
                     monster.rewardGold,
                     monster.monsterAttributes,
                     monster.lootTableList,
-                    new Weapon(monster.selectedWeapon.id,
+                    new registry['Weapon'](monster.selectedWeapon.id,
                         monster.selectedWeapon.name,
                         monster.selectedWeapon.namePlural,
                         monster.selectedWeapon.minimumDamage,
                         monster.selectedWeapon.maximumDamage
                     )
                 );
-                break;
         }
     }
 }

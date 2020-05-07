@@ -12,38 +12,43 @@ export class Player extends Creature {
     name,
     currentHitPoints,
     maximumHitPoints,
+    CurrentLocation,
     gold,
     experiencePoints,
     level,
     playerAttributes,
     PlayerQuestList,
-    SelectedWeapon
+    SelectedWeapon,
+    playerNavigation
   ) {
     super(id, name, currentHitPoints, maximumHitPoints, ...playerAttributes);
-    this.CurrentLocation = null;
     this.gold = gold || 0;
     this.experiencePoints = experiencePoints || 0;
     this.level = level || 0;
     this.inventory = new InventoryRepository();
     this.PlayerQuestList = PlayerQuestList || new PlayerQuestsRepository();
     this.SelectedWeapon = SelectedWeapon;
+    this.playerNavigation = playerNavigation;
+    this.CurrentLocation = CurrentLocation;
   }
 
   getSelectedWeapon() {
     return this.SelectedWeapon;
   }
 
-  setCurrentLocation(location) {
-    this.CurrentLocation = location;
-    return this;
-  }
-
   getCurrentLocation() {
-    return this.CurrentLocation;
+    this.currentLocation = this.playerNavigation.getLocation();
+    return this.currentLocation;
   }
 
   setInventoryItem(item) {
     this.inventory.add(item);
+    return this;
+  }
+
+  setNewLocation(direction) {
+    this.currentLocation = this.playerNavigation.move(direction);
+    return this;
   }
 
   setPlayerQuest(quest) {
@@ -90,4 +95,5 @@ export class Player extends Creature {
   getName() {
     return this.name;
   }
+
 }
