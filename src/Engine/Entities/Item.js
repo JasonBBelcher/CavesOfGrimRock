@@ -1,7 +1,14 @@
 /**
  * Item Entity
  */
-
+/**
+ * @param  {} uid
+ * @param  {} type
+ * @param  {} id
+ * @param  {} name
+ * @param  {} namePlural
+ * @param  {} attributeEffect
+ */
 export class Item {
   constructor(uid, type, id, name, namePlural, attributeEffect) {
     this.uid = uid;

@@ -1,3 +1,9 @@
+/**
+ * @param  {} strength
+ * @param  {} agility
+ * @param  {} intellect
+ * @param  {} mana
+ */
 export class CreatureAttributes {
   constructor(strength, agility, intellect, mana) {
     this.strength = strength || 8;

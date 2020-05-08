@@ -2,8 +2,7 @@ import * as weapons from "../Weapons/weapons";
 import * as items from "../Items/Items";
 import * as playerClasses from "../Player/players";
 import * as monsters from "../Monsters/monsters";
-import * as maps from "../Maps/maps";
-import { LocationFactory } from "../Maps/LocationFactory";
+import { LocationFactory } from "./LocationFactory";
 const weaponList = weapons.default;
 const itemList = items.default;
 const playerClassesList = playerClasses.default;
@@ -14,7 +13,7 @@ const monsterList = monsters.default;
  */
 export const Factory = {
     /**
-     * @param  {config object} registery
+     * @param  {function} registery
      * @param  {string} type
      * @param  {string} id
      */

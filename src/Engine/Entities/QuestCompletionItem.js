@@ -1,7 +1,10 @@
 /**
  * Quest Completion Item
  */
-
+/**
+ * @param  {} ItemDetails
+ * @param  {} quantity
+ */
 export class QuestCompletionItem {
   constructor(ItemDetails, quantity) {
     this.ItemDetails = ItemDetails;

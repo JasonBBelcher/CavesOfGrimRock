@@ -2,7 +2,17 @@ import { Item } from "./Item";
 /**
  * Weapon
  */
-
+/**
+ * @param  {} id
+ * @param  {} name
+ * @param  {} namePlural
+ * @param  {} minimumDamage
+ * @param  {} maximumDamage
+ * @param  {} weaponSpeed
+ * @param  {} {super(id
+ * @param  {} name
+ * @param  {} namePlural
+ */
 export class Weapon extends Item {
   constructor(id, name, namePlural, minimumDamage, maximumDamage, weaponSpeed) {
     super(id, name, namePlural);

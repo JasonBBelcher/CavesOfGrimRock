@@ -2,9 +2,15 @@
  * Quest Entity
  */
 
-import { QuestCompletionRepository } from "../Repositories/QuestCompletionRepo";
 import { Item } from "./Item";
-
+/**
+ * @param  {} id
+ * @param  {} name
+ * @param  {} description
+ * @param  {} rewardExperiencePoints
+ * @param  {} rewardGold
+ * @param  {} RewardItem
+ */
 export class Quest {
   constructor(
     id,
@@ -21,8 +27,7 @@ export class Quest {
     this.rewardExperiencePoints = rewardExperiencePoints;
     this.rewardGold = rewardGold;
     this.RewardItem = RewardItem || new Item();
-    this.QuestCompletionItemsList =
-      QuestCompletionItemsList || new QuestCompletionRepository();
+    this.QuestCompletionItemsList = QuestCompletionItemsList;
   }
 
   setId(id) {

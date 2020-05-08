@@ -1,7 +1,15 @@
 /**
  * Location Entity
  */
-
+/**
+ * @param  {} id
+ * @param  {} name
+ * @param  {} description
+ * @param  {} ItemRequiredToEnter
+ * @param  {} hasAMonster
+ * @param  {} MonstersAtLocation
+ * @param  {} playerVisited
+ */
 export class Location {
   constructor(
     id,

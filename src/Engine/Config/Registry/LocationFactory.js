@@ -1,6 +1,6 @@
 import * as maps from "../Maps/maps";
 import * as locations from "../Locations/locations";
-import { Factory } from "../Registry/Factory";
+import { Factory } from "./Factory";
 const locationList = locations.default;
 const mapDict = maps.default;
 
@@ -15,6 +15,8 @@ export const LocationFactory = {
      * @param  {string} id
      */
     construct(registry, type) {
+        let randomLocation;
+        let monsters;
         switch (type) {
             case 'map1':
                 let populatedMap = mapDict[type].map((rm) => {
@@ -31,13 +33,14 @@ export const LocationFactory = {
                         )
                     }
                     if (rm !== '###') {
-                        let randomLocation = locationList[randomNumber(1, 22)]
-                        let monsters = [];
+                        randomLocation = locationList[randomNumber(1, 22)]
+                        monsters = [];
                         if (randomLocation.monstersAtLocation.length) {
                             randomLocation.hasAMonster = true;
                             while (randomLocation.monstersAtLocation.length) {
                                 monsters.push(Factory.construct(registry, 'Monster', randomLocation.monstersAtLocation.pop()))
                             }
+                            
                         }
                         return new registry['Location'](
                             randomLocation.id,
@@ -69,20 +72,21 @@ export const LocationFactory = {
                         )
                     }
                     if (rm !== '###') {
-                        let randomLocation = locationList[randomNumber(1, 22)]
-                        let monsters = [];
+                        randomLocation = locationList[randomNumber(1, 22)]
+                        monsters = [];
                         if (randomLocation.monstersAtLocation.length) {
                             randomLocation.hasAMonster = true;
                             while (randomLocation.monstersAtLocation.length) {
                                 monsters.push(Factory.construct(registry, 'Monster', randomLocation.monstersAtLocation.pop()))
                             }
+                            
                         }
                         return new registry['Location'](randomLocation.id,
                             randomLocation.name,
                             randomLocation.description,
                             randomLocation.itemRequiredToEnter,
                             randomLocation.hasAMonster,
-                            randomLocation.monstersAtLocation,
+                            monsters,
                             randomLocation.playerVisited
                         );
                     } else {
@@ -106,20 +110,21 @@ export const LocationFactory = {
                         )
                     }
                     if (rm !== '###') {
-                        let randomLocation = locationList[randomNumber(1, 22)]
-                        let monsters = [];
+                        randomLocation = locationList[randomNumber(1, 22)]
+                        monsters = [];
                         if (randomLocation.monstersAtLocation.length) {
                             randomLocation.hasAMonster = true;
                             while (randomLocation.monstersAtLocation.length) {
                                 monsters.push(Factory.construct(registry, 'Monster', randomLocation.monstersAtLocation.pop()))
                             }
+                           
                         }
                         return new registry['Location'](randomLocation.id,
                             randomLocation.name,
                             randomLocation.description,
                             randomLocation.itemRequiredToEnter,
                             randomLocation.hasAMonster,
-                            randomLocation.monstersAtLocation,
+                            monsters,
                             randomLocation.playerVisited
                         );
                     } else {
@@ -143,20 +148,21 @@ export const LocationFactory = {
                         )
                     }
                     if (rm !== '###') {
-                        let randomLocation = locationList[randomNumber(1, 22)]
-                        let monsters = [];
+                        randomLocation = locationList[randomNumber(1, 22)]
+                        monsters = [];
                         if (randomLocation.monstersAtLocation.length) {
                             randomLocation.hasAMonster = true;
                             while (randomLocation.monstersAtLocation.length) {
                                 monsters.push(Factory.construct(registry, 'Monster', randomLocation.monstersAtLocation.pop()))
                             }
+                            
                         }
                         return new registry['Location'](randomLocation.id,
                             randomLocation.name,
                             randomLocation.description,
                             randomLocation.itemRequiredToEnter,
                             randomLocation.hasAMonster,
-                            randomLocation.monstersAtLocation,
+                            monsters,
                             randomLocation.playerVisited
                         );
                     } else {
