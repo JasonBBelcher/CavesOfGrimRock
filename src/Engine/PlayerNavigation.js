@@ -1,5 +1,9 @@
-
+/** Controls the players movements through the world map.
+ * @param  {array} map
+ * 
+ */
 export const playerNavigation = (map) => {
+    // default is 4 * 4 map grid 
     let playerIndex = 0;
     let east = 1;
     let west = 1;
@@ -10,17 +14,20 @@ export const playerNavigation = (map) => {
     let northBound = 0;
     let southBound = 15;
 
+    // 16 * 16 map grid
     if (map.length === 256) {
         south = 16;
         north = 16;
         southBound = 255;
         eastBounds = 15;
     }
-
+    /** Methods to move the player or get there current location. */
     return {
+        /** return the players location on the map */
         getLocation: () => {
             return map[playerIndex];
         },
+        /** Move the player in a direction : North | East | South | West */
         move: (direction) => {
             if (direction === 'east' && eastBounds > 0) {
                 playerIndex += east;

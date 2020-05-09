@@ -4,14 +4,23 @@
  * to determine who gets to attack and the amount of damage delt
  * on each frame of the game loop.
  * 
- * @param  {class} Player
- * @param  {class} Monster
+ * @param  {class} Player player object
+ * @param  {class} Monster monster object
+ * @param {class} Location location object
  */
 
 export class FightMechanics {
-  constructor(Player, Monster) {
+  /** Refactor to accept a location so that a monster can be subtracted
+   *  from monster list at that location 
+   * 
+   *  @param {object} Player player object
+   *  @param {object} Monster monster object
+   *  @param {object} Location location object
+   * */
+  constructor(Player, Monster, Location) {
     this.Player = Player;
     this.Monster = Monster;
+    this.Location = Location;
     this.WhoAttacks = null;
     this.currentHit = 0;
     this.timer = null;
@@ -34,6 +43,13 @@ export class FightMechanics {
   /** Get Monster object */
   getMonster() {
     return this.Monster;
+  }
+  /** Get Location object
+   * @returns Location object
+   * 
+   */
+  getLocation() {
+    return this.Location;
   }
 
   /** Roll the dice  */
@@ -160,6 +176,7 @@ export class FightMechanics {
       this.getPlayer().setCurrentlyFighting(false);
       console.log(`${this.getPlayer().getName()} killed the nasty ${this.getMonster().getName()}!`);
       this.stopTimer();
+      this.getLocation().removeMonster()
       return;
     }
   }

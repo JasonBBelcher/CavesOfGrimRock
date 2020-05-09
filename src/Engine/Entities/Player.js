@@ -1,23 +1,22 @@
 import { Creature } from "./Creature";
 
-
 /**
  * Player Entity
- */
-/**
- * @param  {string} id
- * @param  {string} name
- * @param  {number} currentHitPoints
- * @param  {number} maximumHitPoints
- * @param  {{}} CurrentLocation
- * @param  {number} gold
- * @param  {number} experiencePoints
- * @param  {number} level
- * @param  {array} playerAttributes
- * @param  {array} PlayerQuestList
- * @param  {{}} SelectedWeapon
- * @param  {{}} playerNavigation
- * @param  {{}} fightLoop
+ *
+ * @param  {} id
+ * @param  {} name
+ * @param  {} currentHitPoints
+ * @param  {} maximumHitPoints
+ * @param  {} CurrentLocation
+ * @param  {} gold
+ * @param  {} experiencePoints
+ * @param  {} level
+ * @param  {} playerAttributes
+ * @param  {} PlayerQuestList
+ * @param  {} SelectedWeapon
+ * @param  {} playerNavigation
+ * @param  {} fightLoop
+ * @param  {} inventory
  */
 export class Player extends Creature {
     constructor(
@@ -41,14 +40,14 @@ export class Player extends Creature {
         this.experiencePoints = experiencePoints || 0;
         this.level = level || 0;
         this.inventory = inventory;
-        this.PlayerQuestList = PlayerQuestList
+        this.PlayerQuestList = PlayerQuestList;
         this.SelectedWeapon = SelectedWeapon;
         this.CurrentLocation = CurrentLocation;
         this.player = this;
         this.playerNavigation = playerNavigation;
         this.fightLoop = fightLoop;
         this.attributeModified = false;
-        this.modifiedAttributeName = "";
+        this.modifiedAttributeName = '';
         this.currentlyFighting = false;
     }
 
@@ -63,95 +62,79 @@ export class Player extends Creature {
     getInventory() {
         return this.inventory;
     }
-    /**
-     * Use an item from your inventory
-     * Perform a check to see what kind of item it is
-     * According to the invoke the correct method for the item type.
-     * 
-     * @param {string} id 
-     */
+
     useItemFromInventory(id) {
-        // find the type of item
+        // find the type of item 
         this.getInventory().forEach((item, index) => {
             if (item.getId() === id) {
                 if (item.type === "POTION") {
+
+                    // affect the attrib modifier
+                    if (item.getAttributeName() === 'strength' ||
+                        item.getAttributeName() === 'agility' ||
+                        item.getAttributeName() === 'intellect'
+                    ) {
+                        this.attributeModified = true;
+                        this.attributeModifiedName = item.getAttributeName();
+                        if (this.attributeModified === false || this.attributeModifiedName !== item.getAttributeName()) {
+                            console.log(super.addAttributeAmount(item.getAttributeName(), item.getAttributeValue()));
+
+                        } else {
+                            console.log('cannot modify an already modified attribute')
+                            return;
+                        }
+
+                        setTimeout(() => {
+                            console.log(`${item.name} wore off.`)
+                            super.subtractAttributeAmount(item.getAttributeName(), item.getAttributeValue());
+                            this.attributeModified = false;
+                            this.attributeModifiedName = '';
+                        }, 30000)
+                    }
                 }
-                this.calculatePotionEffects(item, index);
+                // delete the item after 
+                this.inventory = this.inventory.splice(index, 1)
+                console.log(this.inventory);
             }
         });
         return this;
     }
-    /**
-     * Apply the potion effect based on the potion type.
-     * 
-     * @param  {{}} item
-     * @param  {number} index
-     */
-    calculatePotionEffects(item, index) {
-        if (
-            item.getAttributeName() === "strength" ||
-            item.getAttributeName() === "agility" ||
-            item.getAttributeName() === "intellect" ||
-            item.getAttributeName() === "currentHitPoints"
-        ) {
-            this.attributeModifiedName = item.getAttributeName();
-            if (this.attributeModified === false || this.attributeModifiedName !== item.getAttributeName()) {
-                console.log(super.addAttributeAmount(item.getAttributeName(), item.getAttributeValue()));
-                this.attributeModified = true;
-            } else {
-                console.log("cannot modify an already modified attribute");
-                return;
-            }
-            /**
-             * sets the potion to take effect for 30 seconds
-             */
-            setTimeout(() => {
-                console.log(`${item.name} wore off.`);
-                super.subtractAttributeAmount(item.getAttributeName(), item.getAttributeValue());
-                this.attributeModified = false;
-                this.attributeModifiedName = "";
-            }, 30000);
-        }
-
-        // delete the item after
-        this.inventory = this.inventory.splice(index, 1);
-        console.log(this.inventory);
-    }
-
+    /** sets the player navigation engine up that moves the player along the grid. */
     setPlayerNav(nav) {
         this.playerNavigation = nav;
         return this;
     }
-
+    /** sets up the fightloop that runs when a monster is found in the room. */
     setFightLoop(fightLoop) {
         this.fightLoop = fightLoop;
         return this;
     }
-
+    /** Get the currently selected weapon the player will fight with. */
     getSelectedWeapon() {
         return this.SelectedWeapon;
     }
-
+    /** Gets the current location object on the map grid */
     getCurrentLocation() {
         this.CurrentLocation = this.playerNavigation.getLocation();
         return this.CurrentLocation;
     }
-
+    /** Puts an item in the players backpack */
     setInventoryItem(item) {
-        this.inventory.add(item);
+        this.inventory.push(item);
         return this;
     }
-
+    /** Move the player one room forward. North | East | South | West */
     move(direction) {
         if (this.getCurrentlyFighting()) {
-            console.log("can't move while fighting");
+            console.log('can\'t move while fighting');
             return this;
         } else {
             this.CurrentLocation = this.playerNavigation.move(direction);
+            this.getCurrentLocation().setPlayerVisited();
             return this;
         }
     }
-
+    /** adds a new quest object to the player. */
     setPlayerQuest(quest) {
         this.PlayerQuestList.push(quest);
         return this;
@@ -174,7 +157,7 @@ export class Player extends Creature {
     }
 
     getQuests() {
-        return this.PlayerQuestList;
+        return this.PlayerQuestList.listAll();
     }
 
     getGold() {
@@ -188,35 +171,40 @@ export class Player extends Creature {
     getLevel() {
         return this.level;
     }
-
+    /** get currently active quests. */
     getQuestsRepository() {
         return this.PlayerQuestList;
     }
-
+    /** Get the name of the player */
     getName() {
         return this.name;
     }
-
+    /** Get this player */
     getPlayer() {
         return this.player;
     }
-
+    /** Is the player currently fighting a monster? */
     getCurrentlyFighting() {
         return this.currentlyFighting;
     }
-
+    /** Set the player to be fighting a monster. */
     setCurrentlyFighting(bool) {
         this.currentlyFighting = bool;
         return this;
     }
-
+    /**
+     * When a player investigates the room there is a chance to fight
+     * a monster 
+     */
     checkIfMonstersToFight() {
         // check if current location has monsters to fight
         const monsterToFight = this.getCurrentLocation().checkForMonster();
         if (monsterToFight) {
-            this.fightLoop(this.getPlayer(), monsterToFight);
+            /** Need to pass in current location to fight loop so that monster can be subtracted if killed. */
+            this.fightLoop(this.getPlayer(), monsterToFight, this.getCurrentLocation());
         } else {
-            console.log("no monster to fight.");
+            console.log('no monster to fight.');
         }
     }
+
 }

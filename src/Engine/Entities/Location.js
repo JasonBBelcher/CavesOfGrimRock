@@ -27,26 +27,46 @@ export class Location {
     this.hasAMonster = hasAMonster;
     this.MonstersAtLocation = MonstersAtLocation;
     this.monsterInFight = null;
+    this.monsterIndex = 0;
     this.playerVisted = playerVisited
   }
 
   checkForMonster() {
+    this.monsterIndex = randomNumber(0, this.MonstersAtLocation.length);
     if (this.MonstersAtLocation.length > 0) {
+      // roll to see if monster appears
+      let roll = randomNumber(1, 6);
 
-      this.monsterInFight = this.MonstersAtLocation[randomNumber(0, this.MonstersAtLocation.length)]
-      return this.monsterInFight;
+      if (roll === 5) {
+        // roll again to pick a random monster
+        this.monsterInFight = this.MonstersAtLocation[this.monsterIndex];
+      }
 
-    } else {
-      this.monsterInFight = this.MonstersAtLocation.pop();
       return this.monsterInFight;
     }
   }
 
-  monsterDeath() {
-    this.MonstersAtLocation.splice(this.monsterInFight, 1);
+  setPlayerVisited() {
+    this.playerVisted = true;
+  }
+  /** Returns monster currently in fight with player 
+   * @returns Monster object
+  */
+  getMonsterInFight() {
+    return this.monsterInFight;
+  }
+  /**
+   * When a fight is won by player remove the monster from the
+   * current room. 
+   * @returns void
+   */
+  removeMonster() {
+    this.MonstersAtLocation.splice(this.getMonsterInFight(), 1);
     if (!this.MonstersAtLocation.length) {
       this.hasAMonster = false;
     }
+    console.log('monster killed!', this.getMonsterInFight());
+    this.monsterInFight = null;
   }
 
   setId(id) {

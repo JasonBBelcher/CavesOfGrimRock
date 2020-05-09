@@ -3,8 +3,8 @@ import { FightMechanics } from "./FightMechanics";
  * When a fight with a monster is triggered start the game loop.
  */
 const gameLoop = function () {
-    return (Player, Monster) => {
-        const fight = new FightMechanics(Player, Monster);
+    return (Player, Monster, Location) => {
+        const fight = new FightMechanics(Player, Monster, Location);
         fight.fightTurn();
         fight.checkFightEnded();
 

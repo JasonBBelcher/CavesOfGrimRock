@@ -1,8 +1,17 @@
+import { Creature } from "./Creature";
 /**
  * Monster Entity
+ * 
+ * @param  {} id
+ * @param  {} name
+ * @param  {} currentHitPoints
+ * @param  {} maximumHitPoints
+ * @param  {} maximumDamage
+ * @param  {} rewardExperiencePoints
+ * @param  {} rewardGold
+ * @param  {} monsterAttributes
+ * @param  {} loot
  */
-
-import { Creature } from "./Creature";
 
 export class Monster extends Creature {
   constructor(
