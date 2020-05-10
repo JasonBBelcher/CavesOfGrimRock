@@ -119,7 +119,7 @@ export class FightMechanics {
       /**Modify damage based on level and strength */
 
       playerDamage = Math.floor(
-        playerDamage + this.Player.getStrength() + this.Player.getLevel() * 0.5
+        playerDamage + this.Player.getStrength() + this.Player.getLevel()
       );
       this.currentHit = playerDamage;
       this.getMonster().setCurrentHitPoints(playerDamage);
@@ -139,7 +139,7 @@ export class FightMechanics {
       monsterDamage = Math.floor(
         monsterDamage +
         this.getMonster().getStrength() +
-        this.getMonster().getLevel() * 0.5
+        this.getPlayer().getlevel() * 0.5
       );
 
       this.currentHit = monsterDamage;
