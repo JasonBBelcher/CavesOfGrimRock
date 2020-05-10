@@ -100,5 +100,45 @@ export default
             "attributeEffect": { "value": 100, "attribute": "currentHitPoints" },
             "dropPercentage": 50,
             "isDefault": false
+        },
+        {
+            "uid": 10,
+            "type": "MONSTER_BODY_PART",
+            "id": "GOBLIN_EAR",
+            "name": "goblin ear",
+            "namePlural": "goblin ears",
+            "attributeEffect": null,
+            "dropPercentage": 50,
+            "isDefault": false
+        },
+        {
+            "uid": 11,
+            "type": "MONSTER_BODY_PART",
+            "id": "GOBLIN_SKIN",
+            "name": "goblin skin",
+            "namePlural": "goblin skins",
+            "attributeEffect": null,
+            "dropPercentage": 50,
+            "isDefault": false
+        },
+        {
+            "uid": 12,
+            "type": "EQUIPMENT",
+            "id": "AGILITY_NECKLACE",
+            "name": "agility necklace",
+            "namePlural": "agility necklaces",
+            "attributeEffect": null,
+            "dropPercentage": 50,
+            "isDefault": false
+        },
+        {
+            "uid": 13,
+            "type": "EQUIPMENT",
+            "id": "STRENGTH_RING",
+            "name": "strength ring",
+            "namePlural": "strength rings",
+            "attributeEffect": null,
+            "dropPercentage": 50,
+            "isDefault": false
         }
     ]

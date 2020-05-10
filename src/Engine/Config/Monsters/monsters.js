@@ -9,11 +9,11 @@ export default
             "rewardExperiencePoints": 1,
             "rewardGold": 3,
             "monsterAttributes": [6, 5, 4, 10],
-            "loot": [],
+            "loot": ["RUSTY_SWORD", "GOBLIN_SKIN", "GOBLIN_EAR", "STRENGTH_RING"],
             "selectedWeapon": {
                 "id": "RUSTY_SWORD",
-                "name": "A Rusty Sword",
-                "namePlural": "Rusty Swords",
+                "name": "rusty short sword",
+                "namePlural": "rusty short swords",
                 "minimumDamage": 1,
                 "maximumDamage": 4,
                 "weaponSpeed": 3
@@ -28,10 +28,10 @@ export default
             "rewardExperiencePoints": 5,
             "rewardGold": 3,
             "monsterAttributes": [10, 9, 6, 25],
-            "loot": [],
+            "loot": ["GOBLIN_EAR", "AGILITY_NECKLACE", "GOBLIN_SKIN"],
             "selectedWeapon": {
                 "id": "SHORT_SWORD",
-                "name": "A short sword",
+                "name": "short sword",
                 "namePlural": "short swords",
                 "minimumDamage": 2,
                 "maximumDamage": 8,

@@ -76,7 +76,29 @@ export const Factory = {
                 );
 
             case 'Monster':
+                /** get the monster by id */
                 const monster = monsterList.filter(monster => monster.id === id)[0];
+
+                /** bag to collect the loot */
+                const loot = [];
+                /** While there are loot ids to collect. This algorithm is LIFO*/
+                while (monster.loot.length) {
+                    /** Starting from last index we know it's an item */
+                    loot.push(Factory.construct(registry, 'Item', monster.loot.pop()));
+                    /** looted weapon is always expected to be first index in loot array */
+                    if (monster.loot.length === 1) {
+                        /** get the index of the weapon giving back the string id  */
+                        let weaponIndex = monster.loot.length - 1;
+                        /** If it matches the monstes selectedWeapon we add it too the loot bag */
+                        if (monster.loot[weaponIndex] === monster.selectedWeapon.id) {
+                            loot.push(Factory.construct(registry, 'Weapon', monster.loot.pop()));
+                        } else {
+                            /** if there is no weapon to drop then just add a normal item. */
+                            loot.push(Factory.construct(registry, 'Item', monster.loot.pop()));
+                        }
+                    }
+                }
+
                 return new registry[type](
                     monster.id,
                     monster.name,
@@ -86,7 +108,7 @@ export const Factory = {
                     monster.rewardExperiencePoints,
                     monster.rewardGold,
                     monster.monsterAttributes,
-                    monster.lootTableList,
+                    loot, /** see above to see how it gets populated */
                     new registry['Weapon'](monster.selectedWeapon.id,
                         monster.selectedWeapon.name,
                         monster.selectedWeapon.namePlural,
