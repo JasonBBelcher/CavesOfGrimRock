@@ -74,9 +74,9 @@ export class Player extends Creature {
                         item.getAttributeName() === 'agility' ||
                         item.getAttributeName() === 'intellect'
                     ) {
-                        this.attributeModified = true;
                         this.attributeModifiedName = item.getAttributeName();
                         if (this.attributeModified === false || this.attributeModifiedName !== item.getAttributeName()) {
+                            this.attributeModified = true;
                             console.log(super.addAttributeAmount(item.getAttributeName(), item.getAttributeValue()));
 
                         } else {
@@ -200,6 +200,7 @@ export class Player extends Creature {
         // check if current location has monsters to fight
         const monsterToFight = this.getCurrentLocation().checkForMonster();
         if (monsterToFight) {
+            console.log('monster to fight: ', monsterToFight);
             /** Need to pass in current location to fight loop so that monster can be subtracted if killed. */
             this.fightLoop(this.getPlayer(), monsterToFight, this.getCurrentLocation());
         } else {
