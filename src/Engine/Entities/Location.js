@@ -29,8 +29,9 @@ export class Location {
     this.monsterInFight = null;
     this.monsterIndex = 0;
     this.playerVisted = playerVisited
+    this.droppedLoot = [];
   }
-
+  /** Roll the dice to see if a monster is in the room to fight. */
   checkForMonster() {
     this.monsterIndex = randomNumber(0, this.MonstersAtLocation.length);
     if (this.MonstersAtLocation.length > 0) {
@@ -45,7 +46,7 @@ export class Location {
       return this.monsterInFight;
     }
   }
-
+  /** if you have been to this location playerNav will set this. */
   setPlayerVisited() {
     this.playerVisted = true;
   }
@@ -61,12 +62,30 @@ export class Location {
    * @returns void
    */
   removeMonster() {
+    this.setDroppedLoot(this.monsterInFight.dropLoot());
     this.MonstersAtLocation.splice(this.getMonsterInFight(), 1);
     if (!this.MonstersAtLocation.length) {
       this.hasAMonster = false;
     }
     console.log('monster killed!', this.getMonsterInFight());
     this.monsterInFight = null;
+  }
+
+  setDroppedLoot(loot) {
+    this.droppedLoot.push(loot);
+    return this;
+  }
+  /** Get the dropped loot from a deceased monster. */
+  getDroppedLoot() {
+    let loot = [];
+    /** put the loot in the bag to return to player */
+    this.droppedLoot.forEach((item) => {
+      loot.push(item);
+    });
+    /** remove loot from location  */
+    this.droppedLoot = [];
+    /** return the bag of loot */
+    return loot;
   }
 
   setId(id) {

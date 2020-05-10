@@ -33,22 +33,18 @@ export class Monster extends Creature {
     this.loot = loot || [];
     this.SelectedWeapon = SelectedWeapon;
   }
-
+  /** Drop a random loot item */
   dropLoot() {
     return this.loot[randomNumber(0, this.loot.length)];
   }
-
+  /** Get the monsters equipped weapon */
   getSelectedWeapon() {
     return this.SelectedWeapon;
   }
-
+  /** Set a loot item on the monster entity */
   setLootItem(LootItem) {
     this.loot.push(LootItem)
     return this;
-  }
-
-  getLootItems() {
-    return this.LootTableList;
   }
 
   setId(id) {

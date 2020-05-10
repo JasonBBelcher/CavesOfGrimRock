@@ -37,7 +37,7 @@ export class Player extends Creature {
     ) {
         super(id, name, currentHitPoints, maximumHitPoints, ...playerAttributes);
         this.gold = gold || 0;
-        this.experiencePoints = experiencePoints || 0;
+        this.experiencePoints = experiencePoints;
         this.level = level || 0;
         this.inventory = inventory;
         this.PlayerQuestList = PlayerQuestList;
@@ -51,6 +51,7 @@ export class Player extends Creature {
         this.currentlyFighting = false;
     }
 
+    /** Place a loot or found item in your inventory. */
     placeInInventory(Item) {
         if (!this.inventory) {
             this.inventory = [];
@@ -58,11 +59,25 @@ export class Player extends Creature {
         this.inventory.push(Item);
         return this;
     }
-
+    /** See what is in the inventory. */
     getInventory() {
         return this.inventory;
     }
+    /** Get loot from current location */
+    getLoot() {
+        if (this.getCurrentLocation()) {
+            if (this.getCurrentLocation().getDroppedLoot().length > 0) {
+                this.placeInInventory(this.getCurrentLocation().getDroppedLoot());
+            } else {
+                console.log('No loot found here!.');
+            }
+        }
+    }
 
+    /** Use an item from your inventory. 
+     * 
+     * @param {string} id 
+     */
     useItemFromInventory(id) {
         // find the type of item 
         this.getInventory().forEach((item, index) => {
@@ -145,7 +160,7 @@ export class Player extends Creature {
     }
 
     setExperiencePoints(points) {
-        this.experiencePoints = points;
+        this.experiencePoints = this.experiencePoints += points;
     }
 
     setLevel(level) {
