@@ -79,7 +79,7 @@ export class FightMechanics {
     const monsterSpeed = Math.floor(
       this.getMonster().getAgility() +
       this.getMonster().getSelectedWeapon().getWeaponSpeed() *
-      (this.getMonster().getLevel() * 0.5)
+      (this.getPlayer().getLevel() * 0.5)
     );
     /**
      * Take the calculation for player speed and roll dice to see if 
@@ -139,7 +139,7 @@ export class FightMechanics {
       monsterDamage = Math.floor(
         monsterDamage +
         this.getMonster().getStrength() +
-        this.getPlayer().getlevel() * 0.5
+        this.getPlayer().getLevel() * 0.5
       );
 
       this.currentHit = monsterDamage;
@@ -165,18 +165,20 @@ export class FightMechanics {
   }
   /** Used by Game Loop to check if fight needs to end due to either the player or monster dying. */
   checkFightEnded() {
-
+    /** Check if player died. */
     if (this.getPlayer().getCurrentHitPoints() <= 0) {
       this.getPlayer().setCurrentlyFighting(false);
       console.log(`${this.getPlayer().getName()} died!`)
       this.stopTimer();
       return;
     }
+    /** Check if monster died. */
     if (this.getMonster().getCurrentHitPoints() <= 0) {
       this.getPlayer().setCurrentlyFighting(false);
       console.log(`${this.getPlayer().getName()} killed the nasty ${this.getMonster().getName()}!`);
       this.stopTimer();
-      this.getLocation().removeMonster()
+      this.getLocation().removeMonster();
+      this.getPlayer().setExperiencePoints(this.getMonster().getRewardExperiencePoints());
       return;
     }
   }
