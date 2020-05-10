@@ -34,20 +34,20 @@ export class Monster extends Creature {
     this.SelectedWeapon = SelectedWeapon;
   }
 
-  getLevel() {
-    return 1;
+  dropLoot() {
+    return this.loot[randomNumber(0, this.loot.length)];
   }
 
   getSelectedWeapon() {
     return this.SelectedWeapon;
   }
 
-  setLootTableItem(LootItem) {
+  setLootItem(LootItem) {
     this.loot.push(LootItem)
     return this;
   }
 
-  getLootTableItems() {
+  getLootItems() {
     return this.LootTableList;
   }
 
@@ -95,4 +95,8 @@ export class Monster extends Creature {
   getRewardGold() {
     return this.rewardGold;
   }
+}
+
+function randomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
 }
